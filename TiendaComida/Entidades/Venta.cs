@@ -13,4 +13,7 @@ public class Venta
 
     public required Cliente Cliente { get; set; }
 
+    public ICollection<Detalle> Detalle { get; set; } = new List<Detalle>();
+
+    public Factura? Factura { get; set; }
 }

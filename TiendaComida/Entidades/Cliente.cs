@@ -9,7 +9,8 @@ public class Cliente
     public string? Extension { get; set; }
     public required string Nombre { get; set; }
     public DateTime FechaNacimiento { get; set; }
+    public bool? EsClientePorDefecto { get; set; }
 
     //Navegación
-    public ICollection<Venta> Ventas { get; set;} = new List<Venta>();
+    public ICollection<Venta> Ventas { get; set; } = new List<Venta>();
 }
