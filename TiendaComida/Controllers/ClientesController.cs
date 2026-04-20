@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TiendaComida.Data;
+using TiendaComida.DTO.Cliente.AgregarCliente;
+using TiendaComida.DTO.Cliente.ListarClientes;
 using TiendaComida.Entidades;
 
 namespace TiendaComida.Controllers
@@ -20,7 +22,7 @@ namespace TiendaComida.Controllers
 
         // GET: api/clientes
         [HttpGet]
-        public async Task<ActionResult<ICollection<Cliente>>> GetClientes()
+        public async Task<ActionResult<ICollection<ListarClientesOutput>>> GetClientes()
         {
             var clientes = await _contexto.Clientes.ToListAsync();
             return Ok(clientes);
@@ -40,12 +42,34 @@ namespace TiendaComida.Controllers
 
         // POST: api/clientes
         [HttpPost]
-        public async Task<ActionResult<Cliente>> CreateCliente([FromBody] Cliente cliente)
+        public async Task<ActionResult<AgregarClienteOutput>> CreateCliente([FromBody] AgregarClienteInput cliente)
         {
-            _contexto.Clientes.Add(cliente);
+            var entrada = new Cliente
+            {
+                Nombre = cliente.Nombre,
+                FechaNacimiento = cliente.FechaNacimiento,
+                Ci = cliente.Ci,
+                Extension = cliente.Extension
+            };
+
+            entrada.Id = Guid.NewGuid();
+            entrada.FechaCreacion = DateTime.Now;
+            entrada.FechaUltimaModificacion = DateTime.Now;
+            entrada.EsClientePorDefecto = false;
+
+            _contexto.Clientes.Add(entrada);
             await _contexto.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCliente), new { id = cliente.Id }, cliente);
+            var salida = new AgregarClienteOutput
+            {
+                Id = entrada.Id,
+                Nombre = entrada.Nombre,
+                FechaNacimiento = entrada.FechaNacimiento,
+                Ci = entrada.Ci,
+                Extension = entrada.Extension
+            };
+
+            return CreatedAtAction(nameof(GetCliente), new { id = salida.Id }, salida);
         }
 
         // PUT: api/clientes/{id}
