@@ -10,9 +10,8 @@ using TiendaComida.Entidades;
 
 namespace TiendaComida.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ClientesController : ControllerBase
+
+    public class ClientesController : BaseApiController
     {
         private readonly AppDbContext _contexto;
 
