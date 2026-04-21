@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TiendaComida.DTO.Cliente.AgregarCliente;
+namespace TiendaComida.DTO.Cliente.ActualizarCliente;
 
-public class AgregarClienteInput
+public class ActualizarClienteInput
 {
     [Range(1, int.MaxValue, ErrorMessage = "El CI debe ser mayor a 0.")]
     public int Ci { get; set; }
@@ -17,3 +17,4 @@ public class AgregarClienteInput
 
     public DateTime FechaNacimiento { get; set; }
 }
+

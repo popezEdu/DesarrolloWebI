@@ -13,4 +13,8 @@ public class Cliente
 
     //Navegación
     public ICollection<Venta> Ventas { get; set; } = new List<Venta>();
+
+    //Auditoria
+    public DateTime FechaCreacion { get; set; }
+    public DateTime FechaUltimaModificacion { get; set; }
 }
