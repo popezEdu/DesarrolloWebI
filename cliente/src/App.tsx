@@ -1,29 +1,23 @@
-import { useState, useEffect } from 'react'
 import './App.css'
-import axios from 'axios'
+import { Layout } from './layout/Layout'
+import { ListaProductos } from './components/Productos/ListaProductos'
 
 function App() {
-  const [productos, setProductos] = useState<Productos[]>([])
-
-  useEffect( () => {
-    axios.get<Productos[]>('http://localhost:5001/api/productos/listartodos')
-      .then(response => setProductos(response.data))
-      .catch(error => console.error(error));
-      return () => {}
-  }, []);
-
   return (
-    <>
-      <h3>Lista de Productos</h3>
-      <ul className="list-group">
-        {productos.map((producto, index) => (
-          <li key={index} className="list-group-item">
-            <h5>{producto.nombre}</h5>
-            <p>{producto.descripcion}</p>
-          </li>
-        ))}
-      </ul>
-    </>
+    <Layout>
+      <div className="mb-4">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
+          <div>
+            <span className="badge bg-info text-dark mb-2">Endpoint</span>
+            <h2 className="h4">Productos disponibles</h2>
+            <p className="text-muted mb-0">
+              Consulta datos desde el endpoint de productos.
+            </p>
+          </div>
+        </div>
+      </div>
+      <ListaProductos />
+    </Layout>
   )
 }
 
